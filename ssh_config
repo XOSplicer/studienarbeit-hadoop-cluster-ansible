@@ -1,0 +1,11 @@
+Host master.bw
+    Hostname 141.52.39.33
+    user ubuntu
+
+Host slave-0.bw
+    Hostname 141.52.39.34
+    user ubuntu
+
+Host slave-1.bw
+    Hostname 141.52.39.39
+    user ubuntu

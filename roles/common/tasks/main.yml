@@ -1,0 +1,25 @@
+---
+# tasks file for common
+- name: Set hostname
+  hostname: name="{{ inventory_hostname }}"
+  become: true
+- name: Set /etc/hosts
+  template:
+    src: "{{ role_path }}/templates/hosts.j2"
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+- name: Set authorized_keys for user ubuntu
+  copy:
+    src: "{{ role_path }}/files/authorized_keys"
+    dest: /home/ubuntu/.ssh/authorized_keys
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+    backup: yes
+- name: Install pycurl
+  apt: pkg=python-pycurl state=installed update_cache=true
+  become: true
+
