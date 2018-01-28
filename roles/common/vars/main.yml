@@ -1,2 +1,4 @@
 ---
 # vars file for common
+pkg_pycurl: python-pycurl
+pkg_jdk: openjdk-8-jdk-headless

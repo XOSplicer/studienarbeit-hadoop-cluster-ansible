@@ -2,7 +2,6 @@
 # tasks file for common
 - name: Set hostname
   hostname: name="{{ inventory_hostname }}"
-  become: true
 - name: Set /etc/hosts
   template:
     src: "{{ role_path }}/templates/hosts.j2"
@@ -10,7 +9,6 @@
     owner: root
     group: root
     mode: 0644
-  become: true
 - name: Set authorized_keys for user ubuntu
   copy:
     src: "{{ role_path }}/files/authorized_keys"
@@ -20,6 +18,15 @@
     mode: 0600
     backup: yes
 - name: Install pycurl
-  apt: pkg=python-pycurl state=installed update_cache=true
-  become: true
+  apt: pkg={{ pkg_pycurl }} state=installed update_cache=true
+- name: Set internal network config
+  template:
+    src: "{{ role_path }}/templates/60-internal.cfg.j2"
+    dest: /etc/network/interfaces.d/60-internal.cfg
+    owner: root
+    group: root
+    mode: 0644
+- name: Apply internal network config
+  shell: "ifdown {{ iface_internal }} && ifup {{ iface_internal }}"
+
 
