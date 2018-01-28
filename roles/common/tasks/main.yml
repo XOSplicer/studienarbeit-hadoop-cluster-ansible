@@ -22,6 +22,11 @@
   apt: pkg={{ pkg_pycurl }} state=installed update_cache=true
 - name: Install ntp
   apt: pkg={{ pkg_ntp }} state=installed update_cache=true
+- name: Activate ntp
+  service:
+    name: ntp
+    enabled: yes
+    state: started
 - name: Set interfaces file to load all interfaces in interfaces.d
   copy:
     src: "{{ role_path }}/files/interfaces"
@@ -53,5 +58,15 @@
 - name: Update apt cache
   apt:
     update_cache: yes
+- name: Copy transparent-huge-pages service file
+  copy:
+    src: disable-transparent-hugepages
+    dest: "/etc/init.d/disable-transparent-hugepages"
+    mode: 0755
+- name: Run service to disable transparent hugepages
+  service:
+    name: disable-transparent-hugepages
+    state: started
+    enabled: yes
 
 
