@@ -9,6 +9,7 @@
     owner: root
     group: root
     mode: 0644
+    backup: yes
 - name: Set authorized_keys for user ubuntu
   copy:
     src: "{{ role_path }}/files/authorized_keys"
@@ -19,6 +20,16 @@
     backup: yes
 - name: Install pycurl
   apt: pkg={{ pkg_pycurl }} state=installed update_cache=true
+- name: Install ntp
+  apt: pkg={{ pkg_ntp }} state=installed update_cache=true
+- name: Set interfaces file to load all interfaces in interfaces.d
+  copy:
+    src: "{{ role_path }}/files/interfaces"
+    dest: /etc/network/interfaces
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
 - name: Set internal network config
   template:
     src: "{{ role_path }}/templates/60-internal.cfg.j2"
@@ -26,7 +37,21 @@
     owner: root
     group: root
     mode: 0644
+    backup: yes
 - name: Apply internal network config
   shell: "ifdown {{ iface_internal }} && ifup {{ iface_internal }}"
+- name: Download Ambari repository list
+  get_url:
+    url: "{{ ambari_repo_list }}"
+    dest: /etc/apt/sources.list.d/ambari.list
+    mode: 0644
+    backup: yes
+- name: Add Ambari repository key
+  apt_key:
+    keyserver: "{{ ambari_repo_keyserver }}"
+    id: "{{ ambari_repo_keyid }}"
+- name: Update apt cache
+  apt:
+    update_cache: yes
 
 
