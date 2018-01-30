@@ -1,5 +1,17 @@
 ---
-- hosts: bw
+- hosts: all
   roles:
     - role: common
+      become: true
+
+- hosts: master
+  tasks:
+    - name: Install ambari-server
+      apt: pkg=ambari-server state=installed update_cache=true
+      become: true
+
+- hosts: slave
+  tasks:
+    - name: Install ambari-agent
+      apt: pkg=ambari-agent state=installed update_cache=true
       become: true
