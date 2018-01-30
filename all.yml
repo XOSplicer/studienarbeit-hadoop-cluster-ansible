@@ -2,5 +2,4 @@
 - hosts: bw
   roles:
     - role: common
-      iface_internal: ens6
       become: true
