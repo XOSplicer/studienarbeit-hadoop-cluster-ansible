@@ -1,0 +1,4 @@
+---
+# tasks file for slave
+- name: Install ambari-agent
+  apt: pkg=ambari-agent state=installed update_cache=true
