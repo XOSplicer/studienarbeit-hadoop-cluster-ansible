@@ -2,3 +2,15 @@
 # tasks file for master
 - name: Install ambari-server
   apt: pkg=ambari-server state=installed update_cache=true
+  register: ambari_server_setup
+
+- name: Set up ambari-server
+  shell: "ambari-server setup --silent"
+  when: ambari_server_setup | changed
+
+- name: Activate ambari-server service
+  service:
+    name: ambari-server
+    enabled: yes
+    state: started
+  ignore_errors: yes

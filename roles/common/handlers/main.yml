@@ -1,5 +1,2 @@
 ---
 # handlers file for common
-- name: if internal restart
-  shell: "ifdown {{ iface_internal }} && ifup {{ iface_internal }}"
-  become: true

@@ -1,6 +1,10 @@
 ---
 # vars file for common
 pkg_pycurl: python-pycurl
+pkg_curl: curl
+pkg_unzip: unzip
+pkg_tar: tar
+pkg_wget: wget
 pkg_ntp: ntp
 pkg_jdk: openjdk-8-jdk-headless
 ambari_repo_list: http://public-repo-1.hortonworks.com/ambari/ubuntu16/2.x/updates/2.6.0.0/ambari.list

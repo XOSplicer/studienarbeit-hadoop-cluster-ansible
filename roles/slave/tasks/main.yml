@@ -2,3 +2,23 @@
 # tasks file for slave
 - name: Install ambari-agent
   apt: pkg=ambari-agent state=installed update_cache=true
+
+- name: Set ambari-agent.ini
+  template:
+    src: "{{ role_path }}/templates/ambari-agent.ini.j2"
+    dest: /etc/ambari-agent/conf/ambari-agent.ini
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  vars:
+    master_hostname: "{{ hostvars[groups['master'][0]].inventory_hostname }}"
+  register: ambari_agent_restart
+
+- name: Restart ambari-agent service
+  shell: "ambari-agent restart"
+  when: ambari_agent_restart | changed
+
+- name: Start ambari-agent service
+  shell: "ambari-agent start"
+  ignore_errors: yes

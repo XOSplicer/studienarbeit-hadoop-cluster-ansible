@@ -3,6 +3,8 @@
   roles:
     - role: master
       become: true
+    - role: slave
+      become: true
 
 - hosts: slave
   roles:

@@ -21,13 +21,19 @@
     mode: 0600
     backup: yes
 
-- name: Install pycurl
-  apt: pkg={{ pkg_pycurl }} state=installed update_cache=true
+- name: Install common packages
+  apt: pkg="{{ item }}" state=installed update_cache=true
+  with_items:
+    - "{{ pkg_pycurl }}"
+    - "{{ pkg_curl }}"
+    - "{{ pkg_unzip }}"
+    - "{{ pkg_tar }}"
+    - "{{ pkg_wget }}"
 
 - name: Install ntp
   apt: pkg={{ pkg_ntp }} state=installed update_cache=true
 
-- name: Activate ntp
+- name: Activate ntp service
   service:
     name: ntp
     enabled: yes
@@ -50,7 +56,11 @@
     group: root
     mode: 0644
     backup: yes
-  notify: if internal restart
+  register: if_internal_restart
+
+- name: Restart internal network interface
+  shell: "ifdown {{ iface_internal }} && ifup {{ iface_internal }}"
+  when: if_internal_restart | changed
 
 - name: Download Ambari repository list
   get_url:
