@@ -9,3 +9,15 @@ Host slave-0.bw
 Host slave-1.bw
     Hostname 141.52.39.39
     user ubuntu
+
+Host hadoop-1.dhbw
+    Hostname 141.72.191.117
+    user ubuntu
+
+Host hadoop-2.dhbw
+    Hostname 141.72.191.118
+    user ubuntu
+
+Host hadoop-3.dhbw
+    Hostname 141.72.191.119
+    user ubuntu
