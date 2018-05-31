@@ -1,5 +1,14 @@
 ---
 # tasks file for slave
+- name: Mount Hadoop Data Volume
+  mount:
+    name: /hadoop
+    src: "UUID={{ hadoop_vol_uuid }}"
+    fstype: ext4
+    state: mounted
+    opts: rw,user,auto
+
+
 - name: Install ambari-agent
   apt: pkg=ambari-agent state=installed update_cache=true
 

@@ -1,23 +1,16 @@
-Host master.bw
-    Hostname 141.52.39.33
+
+Host hadoop-master-0.dhbw
+    Hostname 141.72.191.54
     user ubuntu
 
-Host slave-0.bw
-    Hostname 141.52.39.34
+Host hadoop-sec-master-0.dhbw
+    Hostname 141.72.191.55
     user ubuntu
 
-Host slave-1.bw
-    Hostname 141.52.39.39
+Host hadoop-slave-0.dhbw
+    Hostname 141.72.191.56
     user ubuntu
 
-Host hadoop-1.dhbw
-    Hostname 141.72.191.117
-    user ubuntu
-
-Host hadoop-2.dhbw
-    Hostname 141.72.191.118
-    user ubuntu
-
-Host hadoop-3.dhbw
-    Hostname 141.72.191.119
+Host vps-0.bw
+    Hostname 141.52.39.180
     user ubuntu
