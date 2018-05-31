@@ -1,4 +1,4 @@
-127.0.0.1 localhost {{ inventory_hostname }}
+127.0.0.1 {{ inventory_hostname }} localhost
 
 {% for item in groups['all']  %}
 {{ hostvars[item].internal_ip }} {{ hostvars[item].inventory_hostname }}
